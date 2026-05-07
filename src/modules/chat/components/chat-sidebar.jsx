@@ -26,14 +26,8 @@ const ChatSidebar = ({ user, chats }) => {
 
   const filteredChats = useMemo(() => {
     if (!searchQuery.trim()) return chats;
-    const query = searchQuery.toLocaleLowerCase();
-    return chats.filter(
-      (chat) =>
-        chat.title?.toLowerCase().includes(query) ||
-        chat.messages?.some((msg) =>
-          msg.content?.toLowerCase().includes(query)
-        )
-    );
+    const query = searchQuery.toLowerCase();
+    return chats.filter((chat) => chat.title?.toLowerCase().includes(query));
   }, [chats, searchQuery]);
 
   const groupedChats = useMemo(() => {
