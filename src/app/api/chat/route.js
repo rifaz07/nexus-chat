@@ -3,6 +3,8 @@ import db from "@/lib/db";
 import { MessageRole, MessageType } from "@prisma/client";
 import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { CHAT_SYSTEM_PROMPT } from "@/lib/prompt";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const provider = createOpenRouter({
   apiKey: process.env.OPENROUTER_API_KEY,
@@ -39,7 +41,25 @@ function extractPartsAsJSON(message) {
 
 export async function POST(req) {
   try {
+    const session = await auth.api.getSession({ headers: await headers() });
+    if (!session?.user?.id) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json" },
+      });
+    }
+
     const { chatId, messages: newMessages, model, skipUserMessage } = await req.json();
+
+    if (chatId) {
+      const chat = await db.chat.findUnique({ where: { id: chatId } });
+      if (!chat || chat.userId !== session.user.id) {
+        return new Response(JSON.stringify({ error: "Forbidden" }), {
+          status: 403,
+          headers: { "Content-Type": "application/json" },
+        });
+      }
+    }
 
     const previousMessages = chatId
       ? await db.message.findMany({
@@ -125,8 +145,7 @@ export async function POST(req) {
     console.error("❌ API Route Error:", error);
     return new Response(
       JSON.stringify({
-        error: error.message || "Internal server error",
-        details: error.toString(),
+        error: "Internal server error",
       }),
       {
         status: 500,
