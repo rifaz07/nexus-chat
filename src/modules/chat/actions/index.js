@@ -62,11 +62,8 @@ export const getAllChats = async () => {
       where: {
         userId: user.id,
       },
-      include: {
-        messages: true,
-      },
       orderBy: {
-        createdAt: "desc",
+        updatedAt: "desc",
       },
     });
 
