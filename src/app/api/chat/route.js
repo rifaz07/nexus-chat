@@ -60,12 +60,12 @@ export async function POST(req) {
 
     let modelMessages;
     try {
-      modelMessages = convertToModelMessages(allUIMessages);
+      modelMessages = await convertToModelMessages(allUIMessages);
     } catch (conversionError) {
       modelMessages = allUIMessages
         .map((msg) => ({
           role: msg.role,
-          content: msg.parts
+          content: (msg.parts ?? [])
             .filter((p) => p.type === "text")
             .map((p) => p.text)
             .join("\n"),
@@ -97,7 +97,7 @@ export async function POST(req) {
                 content: userPartsJSON,
                 messageRole: MessageRole.USER,
                 model,
-                MessageType: MessageType.NORMAL,
+                messageType: MessageType.NORMAL,
               });
             }
           }
@@ -109,7 +109,7 @@ export async function POST(req) {
               content: assistantPartsJSON,
               messageRole: MessageRole.ASSISTANT,
               model,
-              messageType: "NORMAL",
+              messageType: MessageType.NORMAL,
             });
           }
 

@@ -4,7 +4,9 @@
       "Bash(npx prisma *)",
       "Bash(npm install *)",
       "Bash(Get-ChildItem *)",
-      "Bash(node *)"
+      "Bash(node *)",
+      "Bash(Get-Content \"C:\\\\dev\\\\Projects\\\\nexus-chat\\\\src\\\\modules\\\\messages\\\\components\\\\message-with-form.jsx\")",
+      "Bash(Select-Object -First 30)"
     ]
   }
 }

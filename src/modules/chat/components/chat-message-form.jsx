@@ -11,8 +11,14 @@ import { toast } from "sonner";
 
 const ChatMessageForm = ({ initialMessage, onMessageChange }) => {
   const { data: models, isPending } = useAIModels();
-  const [selectedModel, setSelectedModel] = useState(models?.models[0]?.id);
+  const [selectedModel, setSelectedModel] = useState(undefined);
   const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    if (!selectedModel && models?.models?.[0]?.id) {
+      setSelectedModel(models.models[0].id);
+    }
+  }, [models, selectedModel]);
   const { mutateAsync, isPending: isChatPending } = useCreateChat();
 
   useEffect(() => {
