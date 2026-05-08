@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { convertToModelMessages, streamText } from "ai";
 import db from "@/lib/db";
 import { MessageRole, MessageType } from "@prisma/client";

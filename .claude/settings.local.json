@@ -6,7 +6,17 @@
       "Bash(Get-ChildItem *)",
       "Bash(node *)",
       "Bash(Get-Content \"C:\\\\dev\\\\Projects\\\\nexus-chat\\\\src\\\\modules\\\\messages\\\\components\\\\message-with-form.jsx\")",
-      "Bash(Select-Object -First 30)"
+      "Bash(Select-Object -First 30)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(Sort-Object)",
+      "PowerShell(head *)",
+      "PowerShell(tail *)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\dev\\\\Projects\\\\nexus-chat\\\\src\" -Recurse | Where-Object { -not $_.PSIsContainer } | Measure-Object | Select-Object -ExpandProperty Count)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\dev\\\\Projects\\\\nexus-chat\\\\src\" -Recurse | Where-Object { $_.PSIsContainer } | Select-Object -ExpandProperty FullName | Sort-Object)",
+      "PowerShell(Get-ChildItem -Path \"C:\\\\dev\\\\Projects\\\\nexus-chat\" -Recurse -File | Group-Object -Property Extension | Select-Object Name, @{Name='Count';Expression={$_.Count}} | Sort-Object Count -Descending)",
+      "PowerShell(@\\(Get-ChildItem -Path \"C:\\\\dev\\\\Projects\\\\nexus-chat\" -Recurse -File -Exclude \"node_modules\" | Group-Object -Property Extension\\) | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" })",
+      "Bash(git *)",
+      "Bash(npx tsc *)"
     ]
   }
 }
