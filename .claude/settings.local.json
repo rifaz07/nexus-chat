@@ -16,7 +16,8 @@
       "PowerShell(Get-ChildItem -Path \"C:\\\\dev\\\\Projects\\\\nexus-chat\" -Recurse -File | Group-Object -Property Extension | Select-Object Name, @{Name='Count';Expression={$_.Count}} | Sort-Object Count -Descending)",
       "PowerShell(@\\(Get-ChildItem -Path \"C:\\\\dev\\\\Projects\\\\nexus-chat\" -Recurse -File -Exclude \"node_modules\" | Group-Object -Property Extension\\) | ForEach-Object { \"$\\($_.Name\\) : $\\($_.Count\\)\" })",
       "Bash(git *)",
-      "Bash(npx tsc *)"
+      "Bash(npx tsc *)",
+      "Bash(Test-Path *)"
     ]
   }
 }
