@@ -7,8 +7,13 @@ import db from "./db";
 
 export const auth = betterAuth({
     database: prismaAdapter(db, {
-        provider: "postgresql", 
+        provider: "postgresql",
     }),
+    trustedOrigins: [
+        "https://nexus-chat-nine-phi.vercel.app",
+        "https://nexus-chat.vercel.app",
+        "http://localhost:3000",
+    ],
     socialProviders:{
         github:{
             clientId:process.env.GITHUB_CLIENT_ID,
